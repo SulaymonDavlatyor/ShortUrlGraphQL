@@ -13,13 +13,18 @@ final class createShortUrl
      */
     public function __invoke($_, array $args)
     {
+        $fullUrl = $args['url'];
+        
+        if(!preg_match('/^https:\/\//',$fullUrl) &&
+           !preg_match('/^http:\/\//',$fullUrl)) throw new Exception('Incorrect url , Url must start with https or http');
+        
         do {
             $shortUrl = Str::random(6);
         } while (Url::where('shortUrl', $shortUrl)->first() != null);
 
         $url = Url::create(
             [
-                'fullUrl' => $args['url'],
+                'fullUrl' => $fullUrl,
                 'shortUrl' => $shortUrl,
                 'counter' => 0
             ]
