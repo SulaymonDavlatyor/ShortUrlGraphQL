@@ -1,0 +1,17 @@
+
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+ urls: [Url]! @all
+}
+
+type Url {
+    id: ID
+    shortUrl: String
+    fullUrl: String
+    counter: Int
+}
+
+type Mutation {
+    createShortUrl(url:String):Url
+}
